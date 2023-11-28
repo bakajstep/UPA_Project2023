@@ -34,6 +34,31 @@ def extract_prices_and_area(input_string):
     return price_m2, price_box, price_each, area_in_box
 
 
+def extract_table_values(soup):
+    table_div = soup.find_all('div', {'class': 'item-specifications-table'})
+
+    # Ověření, že byla nalezena tabulka
+    if not table_div:
+        return None, None, None
+
+    table_body = table_div[0].find('table').find('tbody')
+    rows = table_body.find_all('tr')
+
+    table_dict = {}
+    for row in rows:
+        cols = row.find_all('td')
+        cols = [ele.text.strip() for ele in cols]
+        table_dict[cols[0]] = cols[1]
+
+    # Vrácení hodnot pro dané klíče jako čtyři samostatné proměnné
+    finish = table_dict.get('Finish:')
+    material = table_dict.get('Material:')
+    origin = table_dict.get('Origin:')
+    colour = table_dict.get('Colour:')
+
+    return finish, material, origin, colour
+
+
 # Function to read URLs from a file and fetch data
 def read_urls_from_file(file_path, num_urls):
     # Initialize a list to hold the data
@@ -62,23 +87,11 @@ def read_urls_from_file(file_path, num_urls):
                     price = soup.find('ul', class_='shop-product-prices').find('li').getText(strip=True)
                     price_m2, price_box, price_each, area_in_box = extract_prices_and_area(price)
 
-                    print(f"{url} {title} {price_m2}  {price_box}  {area_in_box}  {price_each}")
+                    finish, material, origin, colour = extract_table_values(soup)
 
-                    title = soup.find('h1').text
-                    price = soup.find('ul', class_='list-inline shop-product-prices margin-bottom-10')
-
-                    table_div = soup.find_all('div', {'class': 'item-specifications-table'})
-
-                    table = table_div[0].find('table')
-
-                    table_body = table.find('tbody')
-
-                    rows = table_body.find_all('tr')
-
-                    for row in rows:
-                        cols = row.find_all('td')
-                        cols = [ele.text.strip() for ele in cols]
-                        # data_list.append([ele for ele in cols if ele])
+                    print(
+                        f"{url}\t{title}\t{price_m2}\t{price_box}\t{area_in_box}\t{price_each}\t{finish}\t"
+                        f"{material}\t{origin}\t{colour}")
 
                 else:
                     print(f"Failed to retrieve data from URL {url}")
