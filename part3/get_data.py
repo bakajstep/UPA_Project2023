@@ -64,6 +64,22 @@ def read_urls_from_file(file_path, num_urls):
 
                     print(f"{url} {title} {price_m2}  {price_box}  {area_in_box}  {price_each}")
 
+                    title = soup.find('h1').text
+                    price = soup.find('ul', class_='list-inline shop-product-prices margin-bottom-10')
+
+                    table_div = soup.find_all('div', {'class': 'item-specifications-table'})
+
+                    table = table_div[0].find('table')
+
+                    table_body = table.find('tbody')
+
+                    rows = table_body.find_all('tr')
+
+                    for row in rows:
+                        cols = row.find_all('td')
+                        cols = [ele.text.strip() for ele in cols]
+                        # data_list.append([ele for ele in cols if ele])
+
                 else:
                     print(f"Failed to retrieve data from URL {url}")
 
