@@ -37,7 +37,7 @@ def extract_prices_and_area(input_string):
 def extract_table_values(soup):
     table_div = soup.find_all('div', {'class': 'item-specifications-table'})
 
-    # Ověření, že byla nalezena tabulka
+    # Verifying that the table was found.
     if not table_div:
         return None, None, None
 
@@ -50,7 +50,7 @@ def extract_table_values(soup):
         cols = [ele.text.strip() for ele in cols]
         table_dict[cols[0]] = cols[1]
 
-    # Vrácení hodnot pro dané klíče jako čtyři samostatné proměnné
+    # Return the values for the given keys as four separate variables.
     finish = table_dict.get('Finish:')
     material = table_dict.get('Material:')
     origin = table_dict.get('Origin:')
