@@ -1,0 +1,22 @@
+Název týmu: UPAdlíci
+
+Seznam řešitelů:
+- Tomáš Bártů <xbartu11@stud.fit.vutbr.cz>
+- Štěpán Bakaj <xbakaj00@stud.fit.vutbr.cz>
+- David Chocholatý <xchoch09@stud.fit.vutbr.cz>
+
+URL a název e-shopu:
+URL: https://www.tiledepot.co.nz/browse/tiles/wall-tiles/
+Název e-shopu: the tile depot
+
+Význam sloupců ve výstupu TSV (v pořadí zleva doprava):
+- URL
+- Název produktu
+- Cena v metrech čtverečních
+- Cena za krabici
+- Plocha v metrech čtverečních v jedné krabici
+- Cena za kus
+- Úprava
+- Materiál
+- Země původu
+- Barva
